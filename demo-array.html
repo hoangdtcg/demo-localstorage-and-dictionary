@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Student.js"></script>
+</head>
+<body>
+<button onclick="setScore()">Score</button>
+<p id="score"></p>
+<script>
+
+    let student1 = new Student("Nhung",17);
+    let student2 = new Student("Minh",30);
+    let student3 = new Student("Long",16);
+
+    let students = [student1,student2,student3];
+    //JSON
+    let studentJson = JSON.stringify(students);
+    localStorage.setItem("student",studentJson);
+    //
+    // let s = localStorage.getItem("student");
+    // let studentArr = JSON.parse(s);
+    // console.log(studentArr[0]);
+
+    function convertToStudent() {
+        let s = localStorage.getItem("student");
+        let studentArr = JSON.parse(s);
+        console.log(studentArr);
+        let students = [];
+        for (let i = 0; i < studentArr.length; i++) {
+            let student = new Student(studentArr[i].name, studentArr[i].age);
+            students.push(student);
+            console.log(student.getInfo());
+        }
+        console.log(students);
+
+    }
+
+    convertToStudent();
+
+    // function setScore() {
+    //     let score = localStorage.getItem("Student");
+    //     score++;
+    //     window.localStorage.setItem("S",score);
+    //     displayScore();
+    // }
+    //
+    // function displayScore() {
+    //     let score = localStorage.getItem("HighScore");
+    //     document.getElementById("score").innerText = score;
+    // }
+    //
+    // displayScore();
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="data.js"></script>
+    <script src="Word.js"></script>
+</head>
+<body>
+<form id="dictionary">
+    <input type="text" placeholder="English" id="english">
+    <input type="text" placeholder="Vietnamese" id="vn">
+    <button type="button" onclick="saveWord()">Save</button>
+</form>
+<br>
+<form id="trans-eng">
+    <input type="text" id="word" placeholder="Nhập từ muốn dịch...">
+    <button type="button" onclick="transEnglish()">Dịch</button>
+</form>
+<br>
+<span>Kết quả dịch: </span>
+<span id="result"></span>
+<script>
+    function saveWord() {
+        let form = document.getElementById("dictionary");
+        let eng = document.getElementById('english');
+        let vn = document.getElementById('vn');
+        let dict = loadData("dictionary");
+        if (eng.value !== "" && vn.value !== "") {
+            let word = new Word(eng.value, vn.value);
+            dict.push(word);
+            saveData("dictionary", dict);
+            form.reset();
+        }else {
+            alert("Input word, please!")
+        }
+    }
+    
+    function transEnglish() {
+        let eng = document.getElementById("word");
+        let dict = loadData("dictionary");
+        let result = document.getElementById("result");
+        for (let i = 0; i < dict.length; i++) {
+            if(eng.value.toLowerCase() === dict[i].eng.toLowerCase()){
+                result.innerText = dict[i].vie;
+                return;
+            }
+        }
+        result.innerText = "Không có trong từ điển, vui lòng thêm mới";
+
+    }
+</script>
+</body>
+</html>
